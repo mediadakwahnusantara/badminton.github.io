@@ -6,8 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="https://rawcdn.githack.com/mediadakwahnusantara/badminton.github.io/9d9c6ed2c1daf64fc60de9b43495b115f7aa7266/multitab.css">
-
+    <meta content='no-referrer' name='referrer'/>
+    <link rel="stylesheet" href="https://rawcdn.githack.com/mediadakwahnusantara/badminton.github.io/c88e122044c1fea38f3a40617846e479a60945b7/multitab.css">
+    
     <script src='https://cdn.jsdelivr.net/momentjs/latest/moment.min.js'></script>
     <script src='https://cdn.jsdelivr.net/momentjs/latest/moment-timezone.min.js'></script>
     <title>Badminton NewsTV</title>
@@ -95,6 +96,18 @@
             font-size: 17px;
             font-weight: bold;
         }
+        
+        @keyframes playerload {
+    0% {
+        transform: rotate(0)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+
     </style>
 
 
@@ -146,61 +159,59 @@
         <div id="clock"></div>
         <div id="calendar"></div>
     </div>
-
+    
 
     <section>
-        <div class='gomuStrem'>
-            <div class='gPembed'>
-                <div class='resGomu' id='resGomu'>
-                    <iframe loading="lazy" sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation" referrerpolicy="no-referrer" src="https://extranet.bwfbadminton.com/docs/events/4735/logo-colour/Malaysia-Open-2024.svg" frameborder="0" marginwidth="0" marginheight="0" scrolling="NO" width="100%" height="100%" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" allow="encrypted-media" name="search_iframe"></iframe>
-                    <div class="gomuPly">
-                        <div id='gomuPly'></div>
-                    </div>
-                </div>
-            </div>
-            <div class='gData'>
-                <div class="gSel">
-                    <select id='gomuSelect' class="gomuSelect" onchange="loadMi(this)" name="gomuSelect">
-                        <option value="">Select Court</option>
-                        <option id='gomuDefault' value="https://vku.youku.com/live/ilpshare?id=8162326">Court 1</option>
-                        <option value="https://vku.youku.com/live/ilpshare?id=8162328">Court 2</option>
-                        <option value="https://vku.youku.com/live/ilpshare?id=8162329">Court 3</option>
-                    </select>
-                </div>
-                <div class="gDow">
-                </div>
-            </div>
-        </div>
-        <div id='gomuShadow'></div>
+        <div class='plarea'>
+  <div class='server_option'>
+    <div id='server'>
+      <ul>
+        <li>
+          <div data-iframe='https://vku.youku.com/live/ilpshare?id=8162326' class='east_player_option'>
+            <span>Court 1 </span>
+          </div>
+        </li>
+        <li>
+          <div data-iframe='https://vku.youku.com/live/ilpshare?id=8162328' class='east_player_option'>
+            <span>Court 2 </span>
+          </div>
+        </li>
+        <li>
+          <div data-iframe='https://vku.youku.com/live/ilpshare?id=8162329' class='east_player_option'>
+            <span>Court 3 </span>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class='video-content'>
+    <div id='overplay'></div>
+    <div id='embed_holder'>
+      <div class='player-embed' id='pembed'>
+        <div id='playVideo'></div>
+        <video autoplay="true"width='100%' height='auto' id='myVideo'sandbox="allow-forms allow-pointer-lock allow-same-origin allow-scripts allow-top-navigation"></video>
+        <button id='skipbtn' disabled='disabled'>SKIP ADS <span>5</span></button>
+        <div class='playerload' id='loadingplayer'></div>
+        <div id='player_embed'></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-
-        <script>
-            /*<![CDATA[*/
-            function loadMi(e) {
-                if (e.value.length < 1) return !1;
-                e.value && document.getElementById("resGomu").getElementsByTagName("iframe")[0].setAttribute("src", e.value), document.querySelector(".gomuSelect>option").setAttribute("disabled", "disabled");
-                var t = document.getElementById("gomuPly");
-                if (t) {
-                    var n = setInterval(function() {
-                        t.style.opacity || (t.style.opacity = 1), t.style.opacity > 0 ? t.style.opacity -= .1 : clearInterval(n)
-                    }, 200);
-                    t.parentNode.parentNode.removeChild(t.parentNode)
-                }
-                return !0
-            }
-            document.querySelector(".gomuPly") && document.getElementById("gomuPly").addEventListener("click", function() {
-                var e = document.getElementById("gomuPly"),
-                    t = setInterval(function() {
-                        e.style.opacity || (e.style.opacity = 1), e.style.opacity > 0 ? e.style.opacity -= .1 : clearInterval(t)
-                    }, 200);
-                e.parentNode.parentNode.removeChild(e.parentNode), document.querySelector("#resGomu iframe").setAttribute("src", document.getElementById("gomuDefault").value), document.getElementById("gomuDefault").setAttribute("selected", !0)
-            }, !1), document.getElementById("gCinema").addEventListener("click", function() {
-                this.classList.contains("gLight") ? (document.querySelector(".gomuStrem>.gPembed").style.zIndex = "102", this.classList.remove("gLight"), this.classList.add("gDark"), document.querySelector("#gCinema span").innerHTML = "Turn on Light", this.style.zIndex = "102", document.getElementById("gomuShadow").style.display = "block") : (document.querySelector(".gomuStrem>.gPembed").style.zIndex = "", this.classList.remove("gDark"), this.classList.add("gLight"), document.querySelector("#gCinema span").innerHTML = "Turn off Light", this.style.zIndex = "", document.getElementById("gomuShadow").style.display = "none")
-            }), document.getElementById("gCinema").addEventListener("click", function() {
-                this.style.visibility && (document.querySelector(".gomuStrem>.gPembed, .gDark").style.zIndex = "", document.getElementById("gCinema").classList.remove("gDark"), document.getElementById("gCinema").classList.add("gLight"), document.querySelector("#gCinema span").innerHTML = "Turn off Light", this.style.display = "none")
-            });
-            /*]]>*/
-        </script>
+<script type='text/javascript'>/*<![CDATA[*/
+let settingIframe={
+  ads:false,
+  url:"https://shope.ee/Aw3RJIYpU",
+  video:"https://stream.portaltv.xyz/iklan/Shopee.mp4",
+  adsImage:{
+    pakai:true,
+    title:"Sponsor",
+    gambar:"https://down-id.img.susercontent.com/file/id-50009109-38acf37669dcea746130bec3500d57cd",
+    link:"https://shope.ee/7UrCkfLOGO"
+  }
+};
+!function(a){var b=document.querySelectorAll(".east_player_option");if(0==b.length)return!1;var e=this;this.timer,this.c=!0,b.forEach(function(c){c.addEventListener("click",function(f){var c,d,g,h="<div class='pframe'><iframe src='".concat(f.currentTarget.dataset.iframe,"' frameborder='0' marginwidth='0' marginheight='0' width='100%' height='100%' scrolling='NO' allowfullscreen='true' webkitallowfullscreen='true' mozallowfullscreen='true'/></div>");document.getElementById("player_embed").innerHTML=h,b.forEach(function(a){return a.classList.remove("on")}),f.currentTarget.classList.add("on"),e.c&&(e.c=!1,c=document.getElementById("myVideo"),d=document.getElementById("skipbtn"),g=document.getElementById("playVideo"),a.ads?(c.innerHTML="<source style='z-index:1;' src='".concat(a.video,"' type='video/mp4'/>Your browser does not support HTML5 video."),c.addEventListener("click",function(){window.open(a.url,"_blank")}),g.addEventListener("click",function(){c.onplay=function(){(function(){var a=5;this.timer=setInterval(function(){document.querySelector("#skipbtn span").innerHTML=--a,a<=0&&(clearInterval(e.timer),document.querySelector("#skipbtn span").innerHTML=">>",document.getElementById("skipbtn").disabled=!1)},1e3)})()},c.onended=function(){c.style.visibility="hidden",d.style.visibility="hidden",document.getElementById("loadingplayer").style.visibility="visible",document.getElementById("player_embed").style.visibility="visible"},c.play(),g.style.visibility="hidden",d.style.visibility="visible"}),d.addEventListener("click",function(){c.style.visibility="hidden",d.style.visibility="hidden",c.pause(),document.getElementById("loadingplayer").style.visibility="visible",document.getElementById("player_embed").style.visibility="visible"})):(c.remove(),d.remove(),document.getElementById("loadingplayer").style.visibility="visible",document.getElementById("player_embed").style.visibility="visible"))})}),document.getElementById("skipbtn").style.visibility="hidden",a.ads?(document.getElementById("loadingplayer").style.visibility="hidden",document.getElementById("player_embed").style.visibility="hidden"):(document.getElementById("loadingplayer").style.visibility="visible",document.getElementById("player_embed").style.visibility="visible"),b[0].click();var c=document.getElementById("overplay");if(a.adsImage.pakai){var d='<div class="chain" align="center"><div id="close-button" style="cursor:pointer;">Close</div><a title="'.concat(a.adsImage.title,'" href="').concat(a.adsImage.link,'" target="_blank" rel="noopener"><div class="gambarku"><img src="').concat(a.adsImage.gambar,'"></div></a></div>');c.innerHTML=d,document.getElementById("close-button").onclick=function(){return c.remove()}}else c.remove()}(settingIframe)
+/*]]>*/</script>
 
 
         <!--start: floating ads-->
@@ -224,11 +235,6 @@
         </div>
         <!--end: floating ads-->
 
-        <!--<script>
-            if (window == window.top) {
-                window.location.replace("https://www.google.com/");
-            }
-        </script>-->
 
         <!-- LIVE CHAT YOUTUBE -->
         <!--<iframe height='450' src='https://www.youtube.com/live_chat?v=WgE8UmVJjoI&embed_domain=www.w3schools.com&dark_theme=1'width='100%'></iframe>-->
@@ -240,32 +246,13 @@
         <p>&copy; 2024 Badminton NewsTV</p>
     </footer>
 
-    <script type='text/javascript'>
-        eval(function(p, a, c, k, e, d) {
-            e = function(c) {
-                return c.toString(36)
-            };
-            if (!''.replace(/^/, String)) {
-                while (c--) {
-                    d[c.toString(a)] = k[c] || c.toString(a)
-                }
-                k = [function(e) {
-                    return d[e]
-                }];
-                e = function() {
-                    return '\\w+'
-                };
-                c = 1
-            };
-            while (c--) {
-                if (k[c]) {
-                    p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c])
-                }
-            }
-            return p
-        }('(3(){(3 a(){8{(3 b(2){7((\'\'+(2/2)).6!==1||2%5===0){(3(){}).9(\'4\')()}c{4}b(++2)})(0)}d(e){g(a,f)}})()})();', 17, 17, '||i|function|debugger|20|length|if|try|constructor|||else|catch||5000|setTimeout'.split('|'), 0, {}))
-    </script>
-    <script disable-devtool-auto='' src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
+<script type='text/javascript'>
+eval(function(p,a,c,k,e,d){e=function(c){
+return c.toString(36)};if(!''.replace(/^/,String)){while(c--){d[c.toString(a)]=k[c]||c.toString(a)}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('(3(){(3 a(){8{(3 b(2){7((\'\'+(2/2)).6!==1||2%5===0){(3(){}).9(\'4\')()}c{4}b(++2)})(0)}d(e){g(a,f)}})()})();',17,17,'||i|function|debugger|20|length|if|try|constructor|||else|catch||5000|setTimeout'.split('|'),0,{}))
+</script>
+<script disable-devtool-auto='' src='https://cdn.jsdelivr.net/npm/disable-devtool@latest'></script>
+
+
 
 </body>
 
