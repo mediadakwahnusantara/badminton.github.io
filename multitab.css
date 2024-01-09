@@ -1,163 +1,178 @@
 <style>
-        .gomuStrem>.gPembed {
-            background: #000;
-            overflow: hidden;
-            position: relative
-        }
+@keyframes playerload {
+    0% {
+        transform: rotate(0)
+    }
 
-        .gPembed>.resGomu {
-            position: relative;
-            z-index: 1;
-            max-width: 100%;
-            height: 0;
-            padding-bottom: 56.2%
-        }
+    100% {
+        transform: rotate(360deg)
+    }
+}
 
-        .resGomu>iframe {
-            position: absolute;
-            border: none;
-            width: 100% !important;
-            height: 100% !important;
-            top: 0;
-            left: 0;
-            margin: 0;
-            padding: 0;
-            z-index: 2
-        }
+.plarea {
+    padding: 0;
+    width: 100%;
+    -webkit-transition: width .2s;
+    -moz-transition: width .2s;
+    transition: width .2s
+}
 
-        .gomuStrem>.gData {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: flex;
-            flex-wrap: nowrap;
-            align-items: center;
-            justify-content: space-between;
-            background: #000000;
-            position: relative;
-            overflow: hidden;
-            padding: 10px 15px;
-            font-size: .85em;
-            margin-bottom: 15px
-        }
+#server {
+    overflow: hidden;
+    margin-bottom: 14px;
+    text-align: center;
+    margin-top: 14px
+}
 
-        .gData>.gSel>.gomuSelect {
-            border: 1px solid #dbdbdb;
-            border-radius: 4px;
-            color: #363636;
-            -webkit-box-shadow: inset 0 1px 2px hsl(0deg 0% 4% / 10%);
-            box-shadow: inset 0 1px 2px hsl(0deg 0% 4% / 10%);
-            padding: 5px 3px;
-            font-size: 13px;
-            font-weight: 300;
-            outline: 0
-        }
+#server ul {
+    list-style: none;
+    margin: 0;
+    padding: 0
+}
 
-        .gData>.gDow {
-            display: -webkit-box;
-            display: -webkit-flex;
-            display: -moz-box;
-            display: -ms-flexbox;
-            display: flex;
-            flex-wrap: nowrap
-        }
+#server ul li {
+    display: inline-block;
+    width: 23%;
+    margin: 5px
+}
 
-        .gDow>div:not(:last-child) {
-            margin-right: 7px
-        }
+#server .east_player_option {
+    width: auto;
+    background: #eceff5;
+    padding: 7px 12px;
+    font-weight: 400;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 2px
+}
 
-        .gDow>div {
-            display: inline-block;
-            padding: 5px;
-            font-size: 12.5px;
-            line-height: 1.2em;
-            cursor: pointer
-        }
+#server .east_player_option.on {
+    background: #30e877
+}
 
-        .gDow>div:before {
-            content: '';
-            display: inline-block;
-            width: 14px;
-            height: 14px;
-            vertical-align: middle;
-            margin-right: 3px
-        }
+.video-content {
+    background: #000;
+    overflow: hidden;
+    position: relative
+}
 
-        .gCinema:before {
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12,2A7,7 0 0,1 19,9C19,11.38 17.81,13.47 16,14.74V17A1,1 0 0,1 15,18H9A1,1 0 0,1 8,17V14.74C6.19,13.47 5,11.38 5,9A7,7 0 0,1 12,2M9,21V20H15V21A1,1 0 0,1 14,22H10A1,1 0 0,1 9,21M12,4A5,5 0 0,0 7,9C7,11.05 8.23,12.81 10,13.58V16H14V13.58C15.77,12.81 17,11.05 17,9A5,5 0 0,0 12,4Z' fill='%23a20a0a'/%3E%3C/svg%3E") center/14px no-repeat
-        }
+#overplay {
+    position: absolute;
+    z-index: 200;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
 
-        .gCinema.gDark:before {
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12,2C9.76,2 7.78,3.05 6.5,4.68L7.93,6.11C8.84,4.84 10.32,4 12,4A5,5 0 0,1 17,9C17,10.68 16.16,12.16 14.89,13.06L16.31,14.5C17.94,13.21 19,11.24 19,9A7,7 0 0,0 12,2M3.28,4L2,5.27L5.04,8.3C5,8.53 5,8.76 5,9C5,11.38 6.19,13.47 8,14.74V17A1,1 0 0,0 9,18H14.73L18.73,22L20,20.72L3.28,4M7.23,10.5L12.73,16H10V13.58C8.68,13 7.66,11.88 7.23,10.5M9,20V21A1,1 0 0,0 10,22H14A1,1 0 0,0 15,21V20H9Z' fill='%23a20a0a'/%3E%3C/svg%3E") center/14px no-repeat
-        }
+#overplay .chain {
+    width: 100%;
+    max-width: 450px;
+    margin: auto;
+    padding-top: 0
+}
 
-        .gDL:before {
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8,13H10.55V10H13.45V13H16L12,17L8,13M19.35,10.04C21.95,10.22 24,12.36 24,15A5,5 0 0,1 19,20H6A6,6 0 0,1 0,14C0,10.91 2.34,8.36 5.35,8.04C6.6,5.64 9.11,4 12,4C15.64,4 18.67,6.59 19.35,10.04M19,18A3,3 0 0,0 22,15C22,13.45 20.78,12.14 19.22,12.04L17.69,11.93L17.39,10.43C16.88,7.86 14.62,6 12,6C9.94,6 8.08,7.14 7.13,8.97L6.63,9.92L5.56,10.03C3.53,10.24 2,11.95 2,14A4,4 0 0,0 6,18H19Z' fill='%23a20a0a'/%3E%3C/svg%3E") center/14px no-repeat
-        }
+#close-button {
+    cursor: pointer;
+    width: 30%;
+    margin: auto;
+    padding: 6px 10px;
+    background: red;
+    font-size: 11px;
+    color: #fff
+}
 
-        .gDow>.gCinema {
-            background: #fff
-        }
+.gambarku img {
+    max-width: 450px;
+    max-height: 450px
+}
 
-        .gDow>.gDL {
-            border: 1px solid #f05252;
-            color: #f05252;
-            border-radius: 3px;
-            font-weight: 500;
-            padding: 3px 10px
-        }
+#embed_holder {
+    position: relative;
+    z-index: 102
+}
 
-        #gomuShadow {
-            display: none;
-            position: fixed;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, .93);
-            width: 100%;
-            height: 100%;
-            z-index: 100;
-            transition: all .5s ease
-        }
+#pembed {
+    position: relative;
+    max-width: 100%;
+    height: 0;
+    padding-bottom: 56.25%
+}
 
-        .gomuPly {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url();
-            background-size: cover
-        }
+#playVideo {
+    background: url(https://www.gstatic.com/images/icons/material/system/1x/play_arrow_white_48dp.png);
+    background-repeat: no-repeat;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background-position: center;
+    cursor: pointer;
+    display: block;
+    z-index: 20
+}
 
-        #gomuPly {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 68px;
-            height: 48px;
-            background-color: #333;
-            opacity: .8;
-            box-shadow: 0 0 30px rgb(0 0 0 / 60%);
-            z-index: 2;
-            border-radius: 12px;
-            transform: translate3d(-50%, -50%, 0);
-            cursor: pointer;
-            transition: background-color .3s ease-out
-        }
+#skipbtn {
+    float: right;
+    height: 60px;
+    position: relative;
+    background-color: #000;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: 0;
+    opacity: .5;
+    color: #fff;
+    z-index: 20;
+    margin-top: -100px;
+    margin-right: 20px;
+    font-weight: 700;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 16px
+}
 
-        #gomuPly:before {
-            content: "";
-            border-style: solid;
-            border-width: 10px 0 10px 20px;
-            border-color: transparent transparent transparent #fff;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate3d(-50%, -50%, 0)
-        }
+.playerload {
+    width: 80px;
+    height: 80px;
+    border-radius: 150px;
+    border: 15px solid #fff;
+    border-top-color: rgba(0, 0, 0, .3);
+    box-sizing: border-box;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -38px;
+    margin-left: -38px;
+    animation: playerload 1.2s linear infinite;
+    -webkit-animation: playerload 1.2s linear infinite
+}
 
-        .gomuPly:hover #gomuPly {
-            background-color: red
-        }
-    </style>
+#embed_holder embed,
+#embed_holder iframe {
+    z-index: 102;
+    position: absolute;
+    border: none;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0
+}
+
+@media only screen and (max-width:920px) {
+    .plarea {
+        width: 100%
+    }
+
+    #server ul li {
+        margin-bottom: 10px;
+        width: 45%
+    }
+}
+</style>
